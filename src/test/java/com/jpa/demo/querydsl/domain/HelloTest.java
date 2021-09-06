@@ -1,5 +1,6 @@
 package com.jpa.demo.querydsl.domain;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ class HelloTest {
 
     @Test
     @Transactional
-    void helloTest() {
+    void jpaQueryFactoryTest() {
         Hello hello = new Hello();
         entityManager.persist(hello);
 
@@ -30,6 +31,23 @@ class HelloTest {
         Hello result = query
                 .selectFrom(qHello)
                 .fetchOne();
+
+        assertEquals(result, hello);
+        assertEquals(result.getId(), hello.getId());
+    }
+
+    @Test
+    @Transactional
+    void jpaQueryTest() {
+        Hello hello = new Hello();
+        entityManager.persist(hello);
+
+        JPAQuery<Hello> query = new JPAQuery(entityManager);
+        QHello qHello = QHello.hello;
+        //QHello qHello = new QHello("h");
+
+        //쿼리와 관련된건 Q타입으로 작성함.
+        Hello result = query.from(qHello).fetchOne();
 
         assertEquals(result, hello);
         assertEquals(result.getId(), hello.getId());

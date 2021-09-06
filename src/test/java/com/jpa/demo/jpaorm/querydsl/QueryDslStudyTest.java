@@ -1,5 +1,6 @@
 package com.jpa.demo.jpaorm.querydsl;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,8 +10,9 @@ import javax.persistence.PersistenceContext;
 
 @SpringBootTest
 public class QueryDslStudyTest {
+
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @DisplayName("1. ")
     @Test
