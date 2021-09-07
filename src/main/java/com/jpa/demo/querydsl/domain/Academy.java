@@ -22,7 +22,10 @@ public class Academy {
     private Long id;
 
     private String name;
+
     private String address;
+
+    private int age;
 
     public Academy(String name, String address) {
         this.name = name;
