@@ -21,5 +21,6 @@ public class Team {
     private String teamName;
 
     @OneToMany(mappedBy = "team")
+    @ToString.Exclude
     private List<Member> members;
 }

@@ -1,12 +1,15 @@
 package com.jpa.demo.jpaorm.querydsl;
 
 import com.jpa.demo.querydsl.domain.Academy;
+import com.jpa.demo.querydsl.domain.Member;
 import com.jpa.demo.querydsl.domain.QMember;
 import com.jpa.demo.querydsl.domain.Team;
+import com.jpa.demo.querydsl.dto.MemberDTO;
 import com.querydsl.core.QueryModifiers;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -113,14 +116,53 @@ public class QueryDslStudyTest {
     @DisplayName("5. 프로젝션과 결과 반환")
     @Test
     void test_5() {
-        List<Tuple> result = queryFactory.select(member.name, member.age)
-                .from(member)
-                .fetch();
+        //기본 결과 반환
+//        List<Tuple> result = queryFactory.select(member.name, member.age)
+//                .from(member)
+//                .fetch();
+//
+//        for (Tuple tuple : result){
+//            System.out.println("name = " + tuple.get(member.name));
+//            System.out.println("age = " + tuple.get(member.age));
+//        }
 
-        for (Tuple tuple : result){
-            System.out.println("name = " + tuple.get(member.name));
-            System.out.println("age = " + tuple.get(member.age));
-        }
+        //프로젝션 사용
+        List<MemberDTO> resultMember = queryFactory
+//                .select(Projections.bean(MemberDTO.class, member.name.as("username"), member.age))
+//                .select(Projections.fields(MemberDTO.class, member.name.as("username"), member.age))
+                .selectDistinct(Projections.constructor(MemberDTO.class, member.name.as("username"), member.age))
+
+                .from(member).fetch();
+
+        resultMember.forEach(memberDTO ->
+                System.out.printf("name = %s, age = %d %n", memberDTO.getUsername(), memberDTO.getAge()));
     }
+
+    @DisplayName("6. 수정, 삭제 배치 쿼리")
+    @Test
+    @Transactional
+    void test_6(){
+        //수정
+        Long updateCnt = queryFactory.update(member).where(member.name.eq("강감찬"))
+                .set(member.name, "강감찬수정")
+                .execute();
+
+        queryFactory.selectFrom(member).fetch().forEach(System.out::println);
+        System.out.println("updateCnt = " + updateCnt);
+
+        //삭제
+        Long deleteCnt = queryFactory.delete(member).where(member.name.eq("강감찬수정"))
+                .execute();
+
+        queryFactory.selectFrom(member).fetch().forEach(System.out::println);
+        System.out.println("deleteCnt = " + deleteCnt);
+    }
+
+    @DisplayName("7. 동적쿼리")
+    @Test
+    void test_7(){
+
+    }
+
 
 }
