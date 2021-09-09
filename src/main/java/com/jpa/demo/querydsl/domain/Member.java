@@ -1,5 +1,6 @@
 package com.jpa.demo.querydsl.domain;
 
+import com.querydsl.core.annotations.QueryEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@NamedNativeQuery(
+        name = "Member.memberSQL",
+        query = "SELECT MEMBER_ID, AGE, NAME, EMAIL, TEAM_ID " +
+                "FROM MEMBER WHERE AGE > ? ",
+        resultClass = Member.class
+)
 public class Member {
 
     @Id

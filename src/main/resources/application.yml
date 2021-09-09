@@ -12,6 +12,8 @@ spring:
     hibernate:
       ddl-auto: create
     database-platform: org.hibernate.dialect.H2Dialect
+    mapping-resources: query/ormTeam.xml
+
 
   sql:
     init:
@@ -24,8 +26,8 @@ logging:
     jdbc: off
     jdbc.sqlonly: debug
     org.springframework.web: DEBUG
-#    org.hibernate.SQL: DEBUG
-#    org.hibernate.type: trace
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: trace
 
 server:
   servlet:

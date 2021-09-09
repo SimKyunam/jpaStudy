@@ -5,6 +5,7 @@ import com.jpa.demo.querydsl.domain.Member;
 import com.jpa.demo.querydsl.domain.QMember;
 import com.jpa.demo.querydsl.domain.Team;
 import com.jpa.demo.querydsl.dto.MemberDTO;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryModifiers;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -131,7 +133,6 @@ public class QueryDslStudyTest {
 //                .select(Projections.bean(MemberDTO.class, member.name.as("username"), member.age))
 //                .select(Projections.fields(MemberDTO.class, member.name.as("username"), member.age))
                 .selectDistinct(Projections.constructor(MemberDTO.class, member.name.as("username"), member.age))
-
                 .from(member).fetch();
 
         resultMember.forEach(memberDTO ->
@@ -161,7 +162,34 @@ public class QueryDslStudyTest {
     @DisplayName("7. 동적쿼리")
     @Test
     void test_7(){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setUsername("홍길동");
+        memberDTO.setAge(5);
 
+        BooleanBuilder builder = new BooleanBuilder();
+        if (StringUtils.hasText(memberDTO.getUsername())) {
+            builder.and(member.name.contains(memberDTO.getUsername()));
+        }
+        if (memberDTO.getAge() != 0) {
+            builder.or(member.age.gt(memberDTO.getAge()));
+        }
+
+        List<Member> result = queryFactory.selectFrom(member)
+                .where(builder)
+                .fetch();
+
+        result.forEach(m -> System.out.printf("name = %s, age = %d", m.getName(), m.getAge()));
+    }
+
+    @DisplayName("8. 메소드 위임")
+    @Test
+    void test_8(){
+        List<Member> result = queryFactory.select(member)
+                .from(member)
+                .where(member.isOrder(10))
+                .fetch();
+
+        result.forEach(m -> System.out.printf("name = %s, age = %d", m.getName(), m.getAge()));
     }
 
 

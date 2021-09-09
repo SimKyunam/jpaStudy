@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 version="2.2">
+
+    <named-native-query name="Team.teamWithMemberCountXml"
+                        result-set-mapping="teamWithMemberCountResultMap">
+        <query>
+            <![CDATA[
+            SELECT T.TEAM_ID, T.TEAM_NAME, MT.MEMBER_COUNT
+            FROM TEAM T
+            LEFT JOIN
+                 (SELECT ST.TEAM_ID, COUNT(*) AS MEMBER_COUNT
+                  FROM MEMBER M
+                        INNER JOIN TEAM ST ON M.TEAM_ID = ST.TEAM_ID
+                  GROUP BY ST.TEAM_ID
+                 ) MT
+            ON MT.TEAM_ID = T.TEAM_ID
+            ]]>
+        </query>
+    </named-native-query>
+
+    <sql-result-set-mapping name="teamWithMemberCountResultMap">
+        <entity-result entity-class="com.jpa.demo.querydsl.domain.Team" />
+        <column-result name="MEMBER_COUNT" />
+    </sql-result-set-mapping>
+</entity-mappings>
+
