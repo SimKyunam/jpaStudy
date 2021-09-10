@@ -12,7 +12,7 @@ spring:
     hibernate:
       ddl-auto: create
     database-platform: org.hibernate.dialect.H2Dialect
-    mapping-resources: query/ormTeam.xml
+    mapping-resources: query/ormTeam.xml, query/procedure.xml
 
 
   sql:
