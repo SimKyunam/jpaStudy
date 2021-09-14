@@ -2,7 +2,6 @@ spring:
   profiles:
     active: local
 
-
   jpa:
     defer-datasource-initialization: true
     show-sql: true
