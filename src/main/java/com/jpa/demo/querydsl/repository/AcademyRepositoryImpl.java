@@ -1,22 +1,16 @@
-package com.jpa.demo.repository;
+package com.jpa.demo.querydsl.repository;
 
 import com.jpa.demo.querydsl.domain.Academy;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import org.springframework.stereotype.Repository;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 import static com.jpa.demo.querydsl.domain.QAcademy.academy;
 
-@Repository
-public class AcademyRepositorySupport extends QuerydslRepositorySupport {
+@RequiredArgsConstructor
+public class AcademyRepositoryImpl implements AcademyRepositoryCustom {
     private final JPAQueryFactory queryFactory;
-
-    public AcademyRepositorySupport(JPAQueryFactory queryFactory) {
-        super(Academy.class);
-        this.queryFactory = queryFactory;
-    }
 
     public List<Academy> findByName(String name) {
         return queryFactory

@@ -1,4 +1,4 @@
-package com.jpa.demo.repository;
+package com.jpa.demo.querydsl.repository;
 
 import com.jpa.demo.querydsl.domain.Academy;
 import org.springframework.data.jpa.repository.JpaRepository;

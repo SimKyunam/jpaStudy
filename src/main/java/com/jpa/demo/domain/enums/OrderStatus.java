@@ -1,7 +1,8 @@
 package com.jpa.demo.domain.enums;
 
 public enum OrderStatus {
-    READY,
+    ORDER,
+    CANCEL,
     ING,
     END
 }

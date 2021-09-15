@@ -21,7 +21,7 @@ public class BulkTest {
     @Transactional
     void test_1(){
         String qlString =
-                "update Member m " +
+                "update ShopMember m " +
                         "set m.age = m.age * 1.1 " +
                         "where m.age > :age";
 
@@ -35,7 +35,7 @@ public class BulkTest {
     @Transactional
     void test_2(){
         String qlString =
-                "delete from Member m " +
+                "delete from ShopMember m " +
                         "where m.age > :age";
 
         int resultCount = em.createQuery(qlString)

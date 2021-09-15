@@ -2,6 +2,7 @@ package com.jpa.demo.domain;
 
 import com.jpa.demo.domain.enums.DeliveryStatus;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
@@ -20,4 +21,9 @@ public class Delivery {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
+
+    public Delivery(Address address){
+        this.address = address;
+    }
+
 }

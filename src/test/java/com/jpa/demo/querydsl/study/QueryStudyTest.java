@@ -1,9 +1,8 @@
 package com.jpa.demo.querydsl.study;
 
 import com.jpa.demo.querydsl.domain.Academy;
-import com.jpa.demo.repository.AcademyRepository;
-import com.jpa.demo.repository.AcademyRepositorySupport;
-import org.aspectj.lang.annotation.After;
+import com.jpa.demo.querydsl.repository.AcademyRepository;
+import com.jpa.demo.querydsl.repository.AcademyRepositorySupport;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

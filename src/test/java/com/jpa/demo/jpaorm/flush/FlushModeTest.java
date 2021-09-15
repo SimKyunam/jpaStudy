@@ -26,7 +26,7 @@ public class FlushModeTest {
         member.setAge(33);
 
         Member member2 =
-                em.createQuery("select m from Member m where m.age = 33", Member.class)
+                em.createQuery("select m from ShopMember m where m.age = 33", Member.class)
                 .getSingleResult();
     }
 
@@ -41,7 +41,7 @@ public class FlushModeTest {
         //em.flush() //1. 직접 호출
 
         Member member2 =
-                em.createQuery("select m from Member m where m.age = 33", Member.class)
+                em.createQuery("select m from ShopMember m where m.age = 33", Member.class)
                         .setFlushMode(FlushModeType.AUTO) //2. setFlushMode() 설정
                         .getSingleResult();
     }
