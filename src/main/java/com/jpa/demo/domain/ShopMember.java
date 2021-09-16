@@ -1,6 +1,7 @@
 package com.jpa.demo.domain;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class ShopMember {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "shopMember")
+    @ToString.Exclude
+    private List<Order> orders = new ArrayList<Order>();
 }

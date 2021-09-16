@@ -1,4 +1,4 @@
-package com.jpa.demo.domain;
+package com.jpa.demo.domain.item;
 
 import lombok.Data;
 
@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("A")
 @Data
-public class Album extends Item{
+public class Album extends Item {
+
     private String artist;
     private String etc;
 }

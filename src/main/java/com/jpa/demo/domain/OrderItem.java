@@ -1,5 +1,6 @@
 package com.jpa.demo.domain;
 
+import com.jpa.demo.domain.item.Item;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,17 +16,18 @@ public class OrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID")
-    private Item item;
+    private Item item;      //주문 상품
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
-    private Order order;
+    private Order order;    //주문
 
-    private int orderPrice;
-    private int count;
+    private int orderPrice; //주문 가격
+    private int count;      //주문 수량
 
-    //==생성 메소드==//
+    //==생성 메서드==//
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
         orderItem.setOrderPrice(orderPrice);

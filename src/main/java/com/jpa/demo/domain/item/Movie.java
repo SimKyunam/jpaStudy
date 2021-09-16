@@ -1,4 +1,4 @@
-package com.jpa.demo.domain;
+package com.jpa.demo.domain.item;
 
 import lombok.Data;
 
@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("M")
 @Data
-public class Movie extends Item{
+public class Movie extends Item {
+
     private String director;
     private String actor;
 }

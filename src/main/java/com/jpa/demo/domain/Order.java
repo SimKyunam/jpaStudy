@@ -1,8 +1,7 @@
 package com.jpa.demo.domain;
 
-import com.jpa.demo.domain.enums.DeliveryStatus;
-import com.jpa.demo.domain.enums.OrderStatus;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,24 +19,27 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
-    private ShopMember member;
+    private ShopMember shopMember;      //주문 회원
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems = new ArrayList<>();
+    @ToString.Exclude
+    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "DELIVERY_ID")
-    private Delivery delivery;
+    @ToString.Exclude
+    private Delivery delivery;  //배송정보
 
-    private Date orderDate;
+    private Date orderDate;     //주문시간
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus status;//주문상태
 
-    //== 생성 메소드 ==//
-    public static Order createOrder(ShopMember member, Delivery delivery, OrderItem... orderItems){
+    //==생성 메서드==//
+    public static Order createOrder(ShopMember shopMember, Delivery delivery, OrderItem... orderItems) {
+
         Order order = new Order();
-        order.setMember(member);
+        order.setMember(shopMember);
         order.setDelivery(delivery);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
@@ -47,33 +49,34 @@ public class Order {
         return order;
     }
 
-    //== 비즈니스 로직 ==//
+    //==비즈니스 로직==//
     /** 주문 취소 */
     public void cancel() {
+
         if (delivery.getStatus() == DeliveryStatus.COMP) {
-            throw new RuntimeException("이미 배송완료ㅕ된 상품은 취소가 불가능합니다.");
+            throw new RuntimeException("이미 배송완료된 상품은 취소가 불가능합니다.");
         }
 
         this.setStatus(OrderStatus.CANCEL);
-        for (OrderItem orderItem : orderItems){
+        for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }
     }
 
-    //== 조회 로직 ==//
+    //==조회 로직==//
     /** 전체 주문 가격 조회 */
-    public int getTotalPirce() {
+    public int getTotalPrice() {
         int totalPrice = 0;
         for (OrderItem orderItem : orderItems) {
             totalPrice += orderItem.getTotalPrice();
         }
-
         return totalPrice;
     }
 
-    public void setMember(ShopMember member) {
-        this.member = member;
-        member.getOrders().add(this);
+    //==연관관계 메서드==//
+    public void setMember(ShopMember shopMember) {
+        this.shopMember = shopMember;
+        shopMember.getOrders().add(this);
     }
 
     public void addOrderItem(OrderItem orderItem) {
@@ -85,4 +88,6 @@ public class Order {
         this.delivery = delivery;
         delivery.setOrder(this);
     }
+
+
 }

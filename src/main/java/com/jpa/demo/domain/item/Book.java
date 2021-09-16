@@ -1,4 +1,4 @@
-package com.jpa.demo.domain;
+package com.jpa.demo.domain.item;
 
 import lombok.Data;
 
@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("B")
 @Data
-public class Book extends Item{
+public class Book extends Item {
+
     private String author;
     private String isbn;
 }

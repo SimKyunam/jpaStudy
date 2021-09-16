@@ -1,6 +1,6 @@
 package com.jpa.demo.repository;
 
-import com.jpa.demo.domain.Item;
+import com.jpa.demo.domain.item.Item;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -26,7 +26,6 @@ public class ItemRepository {
     }
 
     public List<Item> findAll() {
-        return em.createQuery("select i from Item i", Item.class)
-                .getResultList();
+        return em.createQuery("select i from Item i",Item.class).getResultList();
     }
 }
