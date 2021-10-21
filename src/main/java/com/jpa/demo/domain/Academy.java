@@ -1,4 +1,4 @@
-package com.jpa.demo.querydsl.domain;
+package com.jpa.demo.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

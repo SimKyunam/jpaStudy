@@ -1,5 +1,7 @@
 package com.jpa.demo.domain;
 
+import com.jpa.demo.domain.enums.DeliveryStatus;
+import com.jpa.demo.domain.enums.OrderStatus;
 import lombok.Data;
 import lombok.ToString;
 
@@ -19,7 +21,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
-    private ShopMember shopMember;      //주문 회원
+    private Member shopMember;      //주문 회원
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @ToString.Exclude
@@ -36,10 +38,10 @@ public class Order {
     private OrderStatus status;//주문상태
 
     //==생성 메서드==//
-    public static Order createOrder(ShopMember shopMember, Delivery delivery, OrderItem... orderItems) {
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
 
         Order order = new Order();
-        order.setMember(shopMember);
+        order.setMember(member);
         order.setDelivery(delivery);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
@@ -74,9 +76,9 @@ public class Order {
     }
 
     //==연관관계 메서드==//
-    public void setMember(ShopMember shopMember) {
-        this.shopMember = shopMember;
-        shopMember.getOrders().add(this);
+    public void setMember(Member member) {
+        this.shopMember = member;
+        member.getOrders().add(this);
     }
 
     public void addOrderItem(OrderItem orderItem) {
@@ -88,6 +90,4 @@ public class Order {
         this.delivery = delivery;
         delivery.setOrder(this);
     }
-
-
 }

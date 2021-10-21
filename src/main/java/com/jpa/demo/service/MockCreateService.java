@@ -1,7 +1,7 @@
 package com.jpa.demo.service;
 
 import com.jpa.demo.domain.Address;
-import com.jpa.demo.domain.ShopMember;
+import com.jpa.demo.domain.Member;
 
 import com.jpa.demo.domain.item.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class MockCreateService {
     @PostConstruct
     public void initCreateMock() {
 
-        ShopMember member = new ShopMember();
+        Member member = new Member();
         member.setName("회원1");
         member.setAddress(new Address("서울", "강가", "123-123"));
 

@@ -1,8 +1,8 @@
 package com.jpa.demo.repository;
 
+import com.jpa.demo.domain.Member;
 import com.jpa.demo.domain.Order;
 import com.jpa.demo.domain.OrderSearch;
-import com.jpa.demo.domain.ShopMember;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -42,7 +42,7 @@ public class OrderRepository {
         }
         //회원 이름 검색
         if (StringUtils.hasText(orderSearch.getMemberName())) {
-            Join<Order, ShopMember> m = o.join("member", JoinType.INNER); //회원과 조인
+            Join<Order, Member> m = o.join("member", JoinType.INNER); //회원과 조인
             Predicate name = cb.like(m.<String>get("name"), "%" + orderSearch.getMemberName() + "%");
             criteria.add(name);
         }

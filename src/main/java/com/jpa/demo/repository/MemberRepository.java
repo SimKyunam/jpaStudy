@@ -1,6 +1,6 @@
 package com.jpa.demo.repository;
 
-import com.jpa.demo.domain.ShopMember;
+import com.jpa.demo.domain.Member;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -13,21 +13,21 @@ public class MemberRepository {
     @PersistenceContext
     EntityManager em;
 
-    public void save(ShopMember member) {
+    public void save(Member member) {
         em.persist(member);
     }
 
-    public ShopMember findOne(Long id) {
-        return em.find(ShopMember.class, id);
+    public Member findOne(Long id) {
+        return em.find(Member.class, id);
     }
 
-    public List<ShopMember> findAll() {
-        return em.createQuery("select m from ShopMember m", ShopMember.class)
+    public List<Member> findAll() {
+        return em.createQuery("select m from Member m", Member.class)
                 .getResultList();
     }
 
-    public List<ShopMember> findByName(String name) {
-        return em.createQuery("select m from ShopMember m where m.name = :name", ShopMember.class)
+    public List<Member> findByName(String name) {
+        return em.createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name", name)
                 .getResultList();
     }

@@ -1,8 +1,8 @@
 package com.jpa.demo.web;
 
+import com.jpa.demo.domain.Member;
 import com.jpa.demo.domain.Order;
 import com.jpa.demo.domain.OrderSearch;
-import com.jpa.demo.domain.ShopMember;
 import com.jpa.demo.domain.item.Item;
 import com.jpa.demo.service.ItemService;
 import com.jpa.demo.service.MemberService;
@@ -27,7 +27,7 @@ public class OrderController {
     @RequestMapping(value = "/order", method = RequestMethod.GET)
     public String createForm(Model model) {
 
-        List<ShopMember> members = memberService.findMembers();
+        List<Member> members = memberService.findMembers();
         List<Item> items = itemService.findItems();
 
         model.addAttribute("members", members);

@@ -1,7 +1,7 @@
 package com.jpa.demo.web;
 
 import com.jpa.demo.domain.Address;
-import com.jpa.demo.domain.ShopMember;
+import com.jpa.demo.domain.Member;
 import com.jpa.demo.service.ItemService;
 import com.jpa.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/members/new", method = RequestMethod.POST)
-    public String create(ShopMember member, String city, String street, String zipcode) {
+    public String create(Member member, String city, String street, String zipcode) {
 
         Address address = new Address(city, street, zipcode);
         member.setAddress(address);
@@ -37,7 +37,7 @@ public class MemberController {
     @RequestMapping(value = "/members", method = RequestMethod.GET)
     public String list(Model model) {
 
-        List<ShopMember> members = memberService.findMembers();
+        List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
         return "members/memberList";
     }

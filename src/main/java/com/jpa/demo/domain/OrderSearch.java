@@ -1,5 +1,6 @@
 package com.jpa.demo.domain;
 
+import com.jpa.demo.domain.enums.OrderStatus;
 import lombok.Data;
 
 @Data
