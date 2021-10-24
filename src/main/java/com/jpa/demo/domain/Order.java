@@ -21,7 +21,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
-    private Member shopMember;      //주문 회원
+    private Member member;      //주문 회원
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @ToString.Exclude
@@ -77,7 +77,7 @@ public class Order {
 
     //==연관관계 메서드==//
     public void setMember(Member member) {
-        this.shopMember = member;
+        this.member = member;
         member.getOrders().add(this);
     }
 

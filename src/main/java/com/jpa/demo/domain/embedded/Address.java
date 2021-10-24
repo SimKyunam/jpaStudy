@@ -1,4 +1,4 @@
-package com.jpa.demo.domain;
+package com.jpa.demo.domain.embedded;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

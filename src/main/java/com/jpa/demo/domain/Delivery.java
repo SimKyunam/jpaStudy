@@ -1,6 +1,7 @@
 package com.jpa.demo.domain;
 
 
+import com.jpa.demo.domain.embedded.Address;
 import com.jpa.demo.domain.enums.DeliveryStatus;
 import lombok.Data;
 

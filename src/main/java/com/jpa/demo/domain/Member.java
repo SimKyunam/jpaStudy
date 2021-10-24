@@ -1,5 +1,7 @@
 package com.jpa.demo.domain;
 
+import com.jpa.demo.domain.base.BaseEntity;
+import com.jpa.demo.domain.embedded.Address;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +19,9 @@ import java.util.List;
                 "FROM MEMBER WHERE AGE > ? ",
         resultClass = Member.class
 )
-public class Member {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue

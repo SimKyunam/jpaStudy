@@ -1,6 +1,6 @@
 package com.jpa.demo.service;
 
-import com.jpa.demo.domain.Address;
+import com.jpa.demo.domain.embedded.Address;
 import com.jpa.demo.domain.Member;
 
 import com.jpa.demo.domain.item.Book;
